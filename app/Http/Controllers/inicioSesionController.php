@@ -9,7 +9,7 @@ class inicioSesionController extends Controller
 
     public function index()
     {
-        return view('Inicio.login');
+        return view('Auth.login');
     }
     //include('../modelo/conexion/conexion.php');
 

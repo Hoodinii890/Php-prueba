@@ -4,7 +4,7 @@
 //   header("location:usuarioNoRegistrado.php");
 // }
 ?>
-@include('layouts/links')
+@extends('layouts/links')
 <!DOCTYPE html>
 <html lang="en">
    @section('head')
@@ -22,6 +22,7 @@
       <meta name="author" content="">
 
    </head>
+   
    @endsection
    @section('body')
        
@@ -113,7 +114,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Opciones:</h6>
             <button>
-      <a class="collapse-item" href="v-admin-user.php"><i class="fas fa-user-cog"></i> Administrar</a>
+      <a class="collapse-item" href="{{route('admin')}}"><i class="fas fa-user-cog"></i> Administrar</a>
             </button>
             <br>
                 <button onclick="cerrarSesion()">
@@ -327,24 +328,11 @@
                      <form action="../control/controlcitas.php" method="post" autocomplete="off">
                         <!-- Form start -->
                         <div class="row">
-                           <div class="col-md-6">
-                              <div class="form-group">
-                                 <label class="control-label" for="nombre">Nombre</label>
-                                 <input id="nombre" name="nombre" type="text" placeholder="Digite" class="form-control input-md">
-                              </div>
-                           </div>
-
+                           
                            <div class="col-md-6">
                               <div class="form-group">
                                  <label class="control-label" for="NM">Nombre Mascota</label>
                                  <input id="NM" name="NM" type="text" placeholder="Digite" class="form-control input-md">
-                              </div>
-                           </div>
-                           <!-- Text input-->
-                           <div class="col-md-6">
-                              <div class="form-group">
-                                 <label class="control-label" for="email">Email</label>
-                                 <input id="email" name="email" type="email" placeholder="Digite" class="form-control input-md">
                               </div>
                            </div>
                            <div class="col-md-6">
@@ -416,9 +404,6 @@
                </div>
             </div>
             <div class="popup-gallery row clearfix">
-               <div class="col-md-3 col-sm-6">
-                  <div id="cargar1" style=" width: 300px; height: 500px;"></div>
-               </div>
                <div class="col-md-3 col-sm-6">
                   <div class="box-gallery">
                      <img src="{{asset('images/gallery-02.jpg')}} " alt="">
@@ -948,5 +933,5 @@
       <!------------------------------------------------------------------------------------------>
 
    
-      @endsection
+   @endsection
 </html>

@@ -13,7 +13,7 @@
                
                <thead class="">
                <tr>
-                  <th class="text-center">Cod</th>
+                  <th class="text-center">Id</th>
                   <th class="text-center">Nombre</th>
                   <th class="text-center">Edad</th>
                   <th class="text-center">Sexo</th>
@@ -37,6 +37,8 @@
 <a class="collapse-item" href="{{route('confirmar')}}">Confirmar Cita</a>
 <br>
 <a class="collapse-item" href="{{route('citas')}} ">Concluir citas</a>
+<br>
+<a class="collapse-item" href="{{route('medico')}} ">Veterinarios</a>
 @endsection
 @section('modales')
    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -32,7 +32,9 @@
 @section('urls')
 <a class="collapse-item" href="{{route('confirmar')}}">Confirmar Cita</a>
 <br>
-<a class="collapse-item" href="{{route('admin')}} ">Administrar Usuarios</a>
+<a class="collapse-item" href="{{route('admin')}} ">Administración Usuarios</a>
+<br>
+<a class="collapse-item" href="{{route('medico')}} ">Veterinarios</a>
 @endsection
 @section('modales')
   <div class="modal fade" id="modificarUsuarios" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

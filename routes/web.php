@@ -8,7 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\inicioSesionController;
 use App\Http\Controllers\listarCitasController;
 use App\Http\Controllers\listarUsuariosController;
-
+use App\Http\Controllers\listarMedicoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,6 +20,7 @@ use App\Http\Controllers\listarUsuariosController;
 |
 */
 
+// Rutas Get
 Route::get('/', [HomeController::class, 'index'])->name('Inicio');
 Route::get('Login',[inicioSesionController::class, 'index'])->name('login');
 Route::get('Calendario',[CalendarioController::class, 'index'])->name('calendario');
@@ -27,4 +28,9 @@ Route::get('usuarioNoRegistrado', [cerrarSesionController::class, 'index'])->nam
 Route::get('Administracion',[listarUsuariosController::class, 'index'])->name('admin');
 Route::get('Citas',[listarCitasController::class,'index'])->name('citas');
 Route::get('Confirmarcita',[activarCitasController::class, 'index'])->name('confirmar');
+Route::get('Veterinarios',[listarMedicoController::class, 'index'])->name('medico');
 
+// Rutas Post Veterinario
+Route::post('Veterinarios',[listarMedicoController::class, 'create']);
+Route::patch('EditVeterinarios',[listarMedicoController::class, 'Edit'])->name('editVet_update');
+Route::delete('DeleteVeterinarios/{id}',[listarMedicoController::class, 'delete'])->name('delVet');

@@ -25,7 +25,8 @@
       <!-- ALL JS FILES -->
       @yield('head')
 </head>
-<body>
+
+<body id="home" data-spy="scroll" data-target="#navbar-wd" data-offset="98">
     @yield('body')
     <script src="{{asset('js/jquery.min.js')}} "></script>
     <script src="{{asset('js/bootstrap.min.js')}} "></script>
