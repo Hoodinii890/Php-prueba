@@ -1,12 +1,4 @@
-<?php 
-// session_start();
-// if(!isset($_SESSION['adm'])){
-//   if ($_SESSION['u']) {
-//      header("location:index.php");
-//   }else
-//   header("location:usuarioNoRegistrado.php");
-// }
-?>
+
 @extends('layouts/links')
 
 <!DOCTYPE html>

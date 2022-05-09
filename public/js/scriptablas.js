@@ -221,6 +221,12 @@ function Editarcita(id, fecha, m_id, hora, nom) {
     $("#mid_editarcita").val(m_id)
     let mid = document.getElementById('mid_editarcita');
     mid.innerHTML = nom;
+    let vet = document.querySelectorAll('#veterinarios');
+    vet.forEach(Vet => {
+        if(Vet.value == m_id){
+            Vet.style.display = 'none';
+        }
+    });
     $("#hora_editarcita").val(hora)
 }
 

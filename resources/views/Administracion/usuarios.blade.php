@@ -84,6 +84,7 @@
                   
                   @endforeach
                @else
+               @endif
                      <tr><td>No hay usuarios registrados actualmente</td></tr>
                </tbody>
             </table>

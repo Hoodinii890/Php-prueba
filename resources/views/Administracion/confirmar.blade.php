@@ -68,11 +68,11 @@
                             </form>
                         </th>
                     </tr>
-                    
+                    @else
+               <tr><td>No hay más citas en espera actualmente</td></tr>
                 @endif
               @endforeach
-              @else
-                     <tr><td>No hay citas en espera actualmente</td></tr>
+              
             @endif
           </tbody>
           </table>
@@ -111,14 +111,13 @@
                </div>
             </div>
             <!-- Text input-->
-            
             <div class="form-group">
                <label class="col-md-4 control-label" for="textinput">Veterinario</label>  
                <div class="col-md-8">
                   <select name="m_id" id="">
-                      <option value="" id="mid_editarcita"></option>
+                      <option  value="" id="mid_editarcita"></option>
                       @foreach ($Veterinarios as $Vet)
-                      <option value="{{$Vet->id}}">{{$Vet->Nombre}}</option>
+                        <option id="veterinarios" value="{{$Vet->id}}">{{$Vet->Nombre}}</option>
                       @endforeach
                   </select>
                </div>
@@ -126,9 +125,11 @@
             <!-- Text input-->
             <div class="form-group">
                <label class="col-md-4 control-label" for="textinput">Hora</label>  
-               <div class="col-md-8">
-                  <input id="hora_editarcita" name="hora" type="text" value="" class="form-control input-md" required="">
-               </div>
+               <select id="hora" name="hora" class="">
+                     <option value="6:00am">6:00am</option>
+                     <option value="10:00am">10:00am</option>
+                     <option value="1:00pm">1:00pm</option>
+                  </select>
             </div>
                 <input type="hidden" value="1" name="estado">
             </fieldset>
