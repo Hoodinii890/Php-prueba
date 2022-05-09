@@ -64,7 +64,9 @@
       <header class="top-header" style="border:2px solid #19DE84;">
          <nav class="navbar header-nav navbar-expand-lg">
             <div class="container">
+               @if (auth()->check())
                <label class="checkedd" for="check"><i class="fa fa-bars"></i></label>
+               @endif
                <h1><span class="resaltado" style="color: #19DE84; font-weight: bold;">Firulays</span><span class="resaltado" style="color: #0F5780; font-weight: bold; font-size: 12px;"> S.A</span></h1><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-wd" aria-controls="navbar-wd" aria-expanded="false" aria-label="Toggle navigation">
                <span></span>
                <span></span>
@@ -84,51 +86,62 @@
             </div>
          </nav>
       </header>
+      @if (auth()->check())
+          
       <input type="checkbox" class="checkbox" id="check">
       <div class="menul">
                  <hr class="divider">
          <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-      <!-- Sidebar - Brand -->
-        <div class="sidebar-brand-icon rotate-n-15">
-      <div class="sidebar-brand d-flex align-items-center justify-content-center">
-        <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
-        </div>
-        <div class="sidebar-brand-text mx-3">Usuario: <span style="font-size: 16px; font-family:perpetua; text-decoration: initial;">
-        </span><sup style="color: #0F5780;"></sup></div>
-      </div>
+         <!-- Sidebar - Brand -->
+         <div class="sidebar-brand-icon rotate-n-15">
+            <div class="sidebar-brand d-flex align-items-center justify-content-center">
+            <div class="sidebar-brand-icon rotate-n-15">
+               <i class="fas fa-laugh-wink"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3">Usuario: {{auth()->user()->name}}<span style="font-size: 16px; font-family:perpetua; text-decoration: initial;">
+            </span><sup style="color: #0F5780;">{{auth()->user()->id}}</sup></div>
+            </div>
+         </div>
 
-      <!-- Divider -->
-      <hr class="sidebar-divider my-0">
+         <!-- Divider -->
+         <hr class="sidebar-divider my-0">
 
-      <!-- Nav Item - Pages Collapse Menu -->
+         <!-- Nav Item - Pages Collapse Menu -->
 
-      <li class="nav-item">
-        <hr class="sidebar-divider my-0">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>Menu</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Opciones:</h6>
-            <button>
-      <a class="collapse-item" href="{{route('admin')}}"><i class="fas fa-user-cog"></i> Administrar</a>
-            </button>
-            <br>
-                <button onclick="cerrarSesion()">
-                <a class="">
+         <li class="nav-item">
+         <hr class="sidebar-divider my-0">
+         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Menu</span>
+         </a>
+         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+               <h6 class="collapse-header">Opciones:</h6>
+               @if (auth()->user()->administrador)
+                   
+               <button>
+                  <a class="collapse-item" href="{{route('admin')}}"><i class="fas fa-user-cog"></i> Administrar</a>
+               </button>
+               @else
+               <button>
+                  <a class="collapse-item" href="{{route('calendario')}}"><i class="fas fa-user-cog"></i> Calendario</a>
+               </button>
+               @endif
+               <br>
+               <button><a href="{{route('Logout')}}">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Cerrar sesión
-                </a>
-              </button>
-          </div>
-        </div>
-      </li>
+               </a></button>
+                  
+            </div>
+         </div>
+         </li>
 
-    </ul>
+         </ul>
       </div>
+      
+      @endif
       <!-- End header -->
       <!-- Start Banner -->
       <div class="ulockd-home-slider">
@@ -325,8 +338,18 @@
                      <div class="well-title">
                         <h2>Agendar una cita</h2>
                      </div>
-                     <form action="../control/controlcitas.php" method="post" autocomplete="off">
+                     <form action="{{route('crearCita')}}" method="post" autocomplete="off">
                         <!-- Form start -->
+                        @if (session('success'))
+                           <h2 class="alert alert-success">{{session('success')}}</h2>
+                        @endif
+                        @if (session('info'))
+                           <h2 class="alert alert-info">{{session('info')}}</h2>
+                        @endif
+                        @foreach ($errors->all() as $message)
+                           <h2 class="alert alert-warning">{{$message}}</h2>
+                        @endforeach
+                        @csrf
                         <div class="row">
                            
                            <div class="col-md-6">

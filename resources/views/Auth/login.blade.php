@@ -27,19 +27,31 @@
 	<br><br>
    <div class="modal-dialog text-center">
    	<div class="modal-content">
+         
      <div class="com-sm-8">
   	    <div class="log6">
   	    	<div class="col-12">
   	    		<img style="margin-top: -50px; margin-bottom: 35px;" src="{{asset('images/log.png')}} " width="100" height="100">
   	    	</div>
-
-  	    	<form class="col-12" action="../control/controliniciosession.php" method="post" autocomplete="off">
-
+         @if (session('error'))
+            <h2 class="alert alert-danger">{{session('error')}}</h2>
+         @endif
+         @error('message')
+            <h2 class="alert alert-info"></h2>
+         @enderror
+         @if (session('success'))
+            <h2 class="alert alert-success">{{session('success')}}</h2>
+         @endif
+         @foreach ($errors->all() as $message)
+            <h2 class="alert alert-warning">{{$message}}</h2>
+         @endforeach
+  	    	<form class="col-12" action="{{route('Authentication')}}" method="post" autocomplete="off">
+            @csrf
   	    		<div class="form-group" id="mail-group">
-  	    			<input style="border-radius: 5px;" type="email" id="email" name="email" placeholder="E-mail" >
+  	    			<input style="border-radius: 5px;" type="email" id="email" name="email" placeholder="E-mail" required>
   	    		</div>
   	    		<div class="form-group">
-  	    			<input style="border-radius: 5px;" type="password" id="passwordinput" name="passwordinput" placeholder="Contraseña">
+  	    			<input style="border-radius: 5px;" type="password" id="passwordinput" name="passwordinput" placeholder="Contraseña" required>
   	    		</div>
   	    		<div class="hk">
                   <h5 class="text-right">¿No tienes una cuenta?</h5>
@@ -47,13 +59,8 @@
 
   	    		<button  class="butt2 btn btn-danger"><i class="fas fa-user-check"></i><a data-toggle="modal" data-target="#exampleModal">Registrarse</a></button>
   	    		</div>
-                   <br>
-  	    		<select id="rol" name="rol" class="btn btn-warning">
-  	    			<option value="1">Cliente</option>
-  	    			<option value="2">Admin</option>
-  	    		</select>
-                 <br><br>
-  	    		<ul><li><a href="" style="color: #000;">!Olvide mi contraseña¡</a></li></ul>
+                 <br>
+  	    		<ul><li><a href="" style="color: #000;font-weight: 600;text-shadow:yellow;">¿Olvidaste la contraseña?</a></li></ul>
   	    		<br>
   	    	</form>
   	    </div>
@@ -64,7 +71,32 @@
            
 </body>
 </html>
+
+<style>
+   .form-group input{
+      border: none;
+      border-radius: 4px;
+      box-shadow: 0 7px 15px rgba(0, 0, 0, 0.18);
+      font-size: 16px;
+      line-height: 24px;
+      outline: transparent;
+      padding: 11px 16px;
+      transition: border .3s, box-shadow .3s;
+      width: 70%;
+   }
+   .form-group input::placeholder{
+      color: #000;
+      font-weight: 400;
+      font-family: 'Arial';
+   }
+   .modal-content,
+   .modal-content button{
+      box-shadow: 0 7px 15px rgba(0, 0, 0, 0.18);
+   }
+</style>
 <!--<li><a  class="nav-link" data-toggle="modal" data-target="#exampleModal">ingreso/Registro</a></li>-->
+
+
 
 
 
@@ -77,9 +109,13 @@
                   <span aria-hidden="true">&times;</span>
                   </button>
                </div>
+
+
+
 <!-- formulario registro -->
  
-               <form class="form-horizontal" action="../control/controlregistro1.php" method="post" autocomplete="off">
+               <form class="form-horizontal" action="{{route('Registro')}}" method="post" autocomplete="off">
+                  @csrf
                   <!-- Text input-->
                   <div class="form-group">
                      <label class="col-md-4 control-label" for="textinput">Nombres y Apellidos</label>  
@@ -107,7 +143,7 @@
                      <div class="col-md-8">
                         <select id="sex" name="sex" class="form-control">
                            <option value="1">Hombre</option>
-                           <option value="2">Mujer</option>
+                           <option value="0">Mujer</option>
                         </select>
                      </div>
                   </div>
@@ -123,6 +159,12 @@
                      <label class="col-md-4 control-label" for="pass">Contraseña</label>
                      <div class="col-md-8">
                         <input id="password" name="password" type="password" placeholder="************" class="form-control input-md" required="">
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label class="col-md-4 control-label" for="pass">Confirmar Contraseña</label>
+                     <div class="col-md-8">
+                        <input id="password" name="password1" type="password" placeholder="************" class="form-control input-md" required="">
                      </div>
                   </div>
                   </fieldset>

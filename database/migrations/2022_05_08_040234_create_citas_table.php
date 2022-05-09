@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->date('Fecha');
             $table->string('Hora');
-            $table->string('Nombre Mascota');
+            $table->string('Nombre_Mascota');
             $table->foreignId('user_id')
             ->constrained('users')
             ->cascadeOnDelete()
@@ -27,6 +27,7 @@ return new class extends Migration
             ->constrained('medicos')
             ->cascadeOnDelete()
             ->cascadeOnUpdate();
+            $table->timestamps();
         });
     }
 

@@ -5,27 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
 use Exception;
-class listarUsuariosController extends Controller
+
+class RegisterController extends Controller
 {
-    public function index(){
-        $users = User::all();
-        return view("Administracion/Usuarios",['Users'=>$users]);
-    }
-    public function Edit(Request $request){
-        $request->validate([
-            'Nombre'=>'required|string',
-            'tel'=>'required|min:10|max:10',
-            'email'=>'required|email'
-        ]);
-        $User = User::find($request['id']);
-        $User->name = $request['Nombre'];
-        $User->phone = $request['tel'];
-        $User ->email = $request['email'];
-        $User->save();
-        return redirect()->route('admin')->with('success', 'Se actualizado el usuario de forma correcta');
-    }
-    public function create(Request $request){
+    public function register(Request $request){
         $request->validate([
             'nombre'=>'required|string',
             'email'=>'required|email',
@@ -62,11 +48,6 @@ class listarUsuariosController extends Controller
         else{
             return back()->with('error','Las contraseñas no coinciden');
         }
+        }
     }
-    public function delete($id){
-        $user = User::find($id);
-        $user->delete();
-        return redirect()->route('admin')->with('success', 'Se eliminado el usuario de forma correcta');
     
-    }
-}

@@ -199,3 +199,35 @@ function EliminarVeterinario(url) {
         document.getElementById('formp').submit()
     }
 }
+// Crud Usuarios
+function EditaUser(id, nombre, tel, email) {
+    $("#id_editaruser").val(id)
+    $("#nombre_editaruser").val(nombre)
+    $("#tel_editaruser").val(tel)
+    $("#email_editaruser").val(email)
+}
+
+function EliminarUser(url) {
+    formp = document.getElementById('formp')
+    formp.setAttribute('action', url)
+    if (window.confirm('¿Estás seguro de eliminar este Usuario?')) {
+        document.getElementById('formp').submit()
+    }
+}
+// Crud Confirmar Citas
+function Editarcita(id, fecha, m_id, hora, nom) {
+    $("#id_editarcita").val(id)
+    $("#fecha_editarcita").val(fecha)
+    $("#mid_editarcita").val(m_id)
+    let mid = document.getElementById('mid_editarcita');
+    mid.innerHTML = nom;
+    $("#hora_editarcita").val(hora)
+}
+
+function EliminarCita(url) {
+    formp = document.getElementById('formp')
+    formp.setAttribute('action', url)
+    if (window.confirm('¿Estás seguro de eliminar esta Cita?')) {
+        document.getElementById('formp').submit()
+    }
+}

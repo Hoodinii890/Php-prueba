@@ -5,6 +5,24 @@
    <div class="formn">
       <div class="card">
          <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Usuarios</h3>
+         @if (session('success'))
+            <h2 class="alert alert-success">{{session('success')}}</h2>
+         @endif
+         @error('tel')
+            <h2 class="alert alert-danger">{{$message}}</h2>
+         @enderror
+         @error('email')
+            <h2 class="alert alert-danger">{{$message}}</h2>
+         @enderror
+         @if (session('error'))
+            <h2 class="alert alert-danger">{{session('error')}}</h2>
+         @endif
+         @error('message')
+            <h2 class="alert alert-info"></h2>
+         @enderror
+         @foreach ($errors->all() as $message)
+            <h2 class="alert alert-warning">{{$message}}</h2>
+         @endforeach
          <div class="card-body">
          <div id="table" class="table-editable">
             <span class="table-add float-right mb-3 mr-2"><a href="#!" data-toggle="modal" data-target="#exampleModal" class="text-success"><i
@@ -20,12 +38,53 @@
                   <th class="text-center">Email</th>
                   <th class="text-center">Tel</th>
                   <th class="text-center">Modificar</th>
-                  <th class="text-center" onclick="eliminarUsuario()">Eliminar</th>
+                  <th class="text-center">Eliminar</th>
                </tr>
                </thead>
 
-               <tbody onload="buscar()">
-               
+               <tbody>
+               @if (strlen($Users)>2)
+                  @foreach ($Users as $user)
+                     @if ($user->administrador == False)
+                     
+                     <tr>
+                        <td>{{$user->id}}</td>
+                        <td>{{$user->name}}</td>
+                        <td>{{$user->age}}</td>
+                        <td>@if ($user->sex)
+                           Masculino
+                        @else
+                           Femenino
+                        @endif</td>
+                        <td>{{$user->email}}</td>
+                        <td>{{$user->phone}}</td>
+                        <th>
+                           <form action="" method="post">
+                              @csrf
+                              <div class="btn btn-primary" onclick="EditaUser(
+                                 {{$user->id}},
+                                 '{{$user->name}}',
+                                 '{{$user->phone}}',
+                                 '{{$user->email}}',
+                                 )" data-toggle="modal" data-target="#modificaruser">Editar</div>
+                           </form>
+                        </th>
+                        <th>
+                           <form id="formp" action="#" method="post">
+                              @csrf
+                              @method('DELETE')
+                              <div  class="btn btn-danger" onclick="EliminarUser('{{route('delUser', [$user->id])}}')">Eliminar
+                                 
+                              </div>
+                           </form>
+                        </th>
+                     </tr>
+                     
+                     @endif
+                  
+                  @endforeach
+               @else
+                     <tr><td>No hay usuarios registrados actualmente</td></tr>
                </tbody>
             </table>
          </div>
@@ -52,8 +111,9 @@
             </div>
             <!-- formulario registro -->
 
-            <form class="form-horizontal" action="../control/controlregistro.php" method="post" autocomplete="off">
+            <form class="form-horizontal" action="{{route('createUser')}}" method="post" autocomplete="off">
                <!-- Text input-->
+               @csrf
                <div class="form-group">
                   <label class="col-md-4 control-label" for="textinput">Nombres y Apellidos</label>  
                   <div class="col-md-8">
@@ -80,7 +140,7 @@
                   <div class="col-md-8">
                      <select id="sex" name="sex" class="form-control">
                         <option value="1">Hombre</option>
-                        <option value="2">Mujer</option>
+                        <option value="0">Mujer</option>
                      </select>
                   </div>
                </div>
@@ -98,6 +158,12 @@
                      <input id="password" name="password" type="password" placeholder="************" class="form-control input-md" required="">
                   </div>
                </div>
+               <div class="form-group">
+                  <label class="col-md-4 control-label" for="pass">Confirmar Contraseña</label>
+                  <div class="col-md-8">
+                     <input id="password" name="password1" type="password" placeholder="************" class="form-control input-md" required="">
+                  </div>
+               </div>
                </fieldset>
             <div class="boton">
                      <button type="submit" name="submit" class="btn btn-info">Registrar</button>
@@ -111,7 +177,7 @@
       </div>
    </div>
 
-   <div class="modal fade" id="modificarUsuarios" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal fade" id="modificaruser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
          <div class="modal-content">
          <div class="modal-header">
@@ -121,11 +187,37 @@
             </button>
          </div>
          <div id="datosModificar" class="modal-body">
-            
-         </div>
-         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <button onclick="modificarUsuario()" type="button" class="btn btn-primary">Guardar Cambios</button>
+            <form class="form-horizontal" action="{{route('editUsuario')}}" method="post">
+               @csrf
+               @method('PATCH')
+               <input type="hidden" id="id_editaruser" name="id" value="">
+               <!-- Text input-->
+               <div class="form-group">
+                  <label class="col-md-4 control-label" for="textinput">Nombres y Apellidos</label>  
+                  <div class="col-md-8">
+                     <input id="nombre_editaruser" name="Nombre" type="text" value="" class="form-control input-md" required="">
+                  </div>
+               </div>
+               <!-- Text input-->
+               <div class="form-group">
+                  <label class="col-md-4 control-label" for="textinput">Telefono/Celular</label>  
+                  <div class="col-md-8">
+                     <input id="tel_editaruser" name="tel" type="number" value="" class="form-control input-md" required="">
+                  </div>
+               </div>
+               <!-- Text input-->
+               <div class="form-group">
+                  <label class="col-md-4 control-label" for="textinput">Email</label>  
+                  <div class="col-md-8">
+                     <input id="email_editaruser" name="email" type="email" value="" class="form-control input-md" required="">
+                  </div>
+               </div>
+               </fieldset>
+               <div class="boton">
+                     <button type="submit" name="submit" class="btn btn-info">Registrar</button>
+               </div>
+               <br><br>
+            </form>
          </div>
          </div>
       </div>

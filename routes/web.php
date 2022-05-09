@@ -9,6 +9,8 @@ use App\Http\Controllers\inicioSesionController;
 use App\Http\Controllers\listarCitasController;
 use App\Http\Controllers\listarUsuariosController;
 use App\Http\Controllers\listarMedicoController;
+use App\Http\Controllers\RegisterController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,17 +22,31 @@ use App\Http\Controllers\listarMedicoController;
 |
 */
 
-// Rutas Get
+// Routes Get
 Route::get('/', [HomeController::class, 'index'])->name('Inicio');
 Route::get('Login',[inicioSesionController::class, 'index'])->name('login');
 Route::get('Calendario',[CalendarioController::class, 'index'])->name('calendario');
 Route::get('usuarioNoRegistrado', [cerrarSesionController::class, 'index'])->name('unr');
 Route::get('Administracion',[listarUsuariosController::class, 'index'])->name('admin');
 Route::get('Citas',[listarCitasController::class,'index'])->name('citas');
-Route::get('Confirmarcita',[activarCitasController::class, 'index'])->name('confirmar');
+Route::get('Confirmarcita',[listarCitasController::class, 'IndexNoActivate'])->name('confirmar');
 Route::get('Veterinarios',[listarMedicoController::class, 'index'])->name('medico');
 
-// Rutas Post Veterinario
+// Routes Post for Login and Register
+Route::post('Registro',[RegisterController::class, 'register'])->name('Registro');
+Route::post('Login',[inicioSesionController::class, 'login'])->name('Authentication');
+Route::get('logout',[inicioSesionController::class, 'destroy'])->name('Logout');
+
+// Routes Post for Veterinario
 Route::post('Veterinarios',[listarMedicoController::class, 'create']);
 Route::patch('EditVeterinarios',[listarMedicoController::class, 'Edit'])->name('editVet_update');
 Route::delete('DeleteVeterinarios/{id}',[listarMedicoController::class, 'delete'])->name('delVet');
+
+// Routes Post for Usuarios
+Route::patch('EditUsuario',[listarUsuariosController::class, 'Edit'])->name('editUsuario');
+Route::post('Usuarios',[listarUsuariosController::class, 'create'])->name('createUser');
+Route::delete('DeleteUsers/{id}',[listarUsuariosController::class, 'delete'])->name('delUser');
+
+// Routes Post for Citas
+Route::post('Citas',[listarCitasController::class, 'create'])->name('crearCita');
+Route::patch('ActivarCita',[listarCitasController::class, 'Activar'])->name('activarCita');
