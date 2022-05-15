@@ -223,17 +223,27 @@ function Editarcita(id, fecha, m_id, hora, nom) {
     mid.innerHTML = nom;
     let vet = document.querySelectorAll('#veterinarios');
     vet.forEach(Vet => {
-        if(Vet.value == m_id){
+        if (Vet.value == m_id) {
             Vet.style.display = 'none';
         }
     });
     $("#hora_editarcita").val(hora)
+    let hor = document.getElementById('hora_editarcita');
+    hor.innerHTML = hora;
 }
 
 function EliminarCita(url) {
     formp = document.getElementById('formp')
     formp.setAttribute('action', url)
-    if (window.confirm('¿Estás seguro de eliminar esta Cita?')) {
+    if (window.confirm('¿Estás seguro de eliminar está Cita?')) {
+        document.getElementById('formp').submit()
+    }
+}
+
+function Terminarcita(url) {
+    formp = document.getElementById('formp')
+    formp.setAttribute('action', url)
+    if (window.confirm('¿Estás seguro de concluir está Cita?')) {
         document.getElementById('formp').submit()
     }
 }

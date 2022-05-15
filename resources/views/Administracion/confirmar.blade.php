@@ -4,8 +4,7 @@
 @section('contenido')
 <div class="formn">
   <div class="card">
-      <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Citas</h3>
-
+      <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Confirmar citas</h3>
          @if (session('success'))
             <h2 class="alert alert-success">{{session('success')}}</h2>
          @endif
@@ -68,11 +67,10 @@
                             </form>
                         </th>
                     </tr>
-                    @else
-               <tr><td>No hay más citas en espera actualmente</td></tr>
+                    
                 @endif
               @endforeach
-              
+              <tr><td>No hay más citas en espera actualmente</td></tr>
             @endif
           </tbody>
           </table>
@@ -126,6 +124,7 @@
             <div class="form-group">
                <label class="col-md-4 control-label" for="textinput">Hora</label>  
                <select id="hora" name="hora" class="">
+                      <option value="" id="hora_editarcita"></option>
                      <option value="6:00am">6:00am</option>
                      <option value="10:00am">10:00am</option>
                      <option value="1:00pm">1:00pm</option>

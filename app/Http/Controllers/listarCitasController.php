@@ -2,14 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Http\Request;
 use App\Models\Cita;
 use App\Models\Medico;
 use App\Models\User;
 class listarCitasController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     public function index(){
-        return view("Administracion/terminarCita");
+        if ($this->middleware('auth')){
+            if (auth()->user()->administrador == False){
+                return redirect()->route('Inicio');
+            }
+        }
+        $Citas = Cita::all();
+        $users = User::all();
+        $vets = Medico::all();
+        return view("Administracion.terminarCita",['Citas'=>$Citas])->with(['Users'=>$users,'Veterinarios'=>$vets]);
     }
     public function create(Request $request){
         if(auth()->user()->administrador==False){
@@ -43,7 +55,13 @@ class listarCitasController extends Controller
         }
         
     }
+
     public function IndexNoActivate(){
+        if ($this->middleware('auth')){
+            if (auth()->user()->administrador == False){
+                return redirect()->route('Inicio');
+            }
+        }
         $Citas = Cita::all();
         $users = User::all();
         $vets = Medico::all();
@@ -64,5 +82,10 @@ class listarCitasController extends Controller
         $Cita->Estado=$request['estado'];
         $Cita->save();
         return redirect()->route('confirmar')->with('success', 'la cita ha sido aceptada');
+    }
+    public function delete($id){
+        $Vet = Cita::find($id);
+        $Vet->delete();
+        return redirect()->route('citas')->with('success', 'Se concluyó la cita de forma correcta');
     }
 }

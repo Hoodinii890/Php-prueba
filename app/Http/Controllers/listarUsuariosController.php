@@ -8,7 +8,15 @@ use Illuminate\Support\Facades\Hash;
 use Exception;
 class listarUsuariosController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     public function index(){
+        if ($this->middleware('auth')){
+            if (auth()->user()->administrador == False){
+                return redirect()->route('Inicio');
+            }
+        }
         $users = User::all();
         return view("Administracion/Usuarios",['Users'=>$users]);
     }

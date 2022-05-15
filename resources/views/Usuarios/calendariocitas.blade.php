@@ -1,9 +1,4 @@
-<?php 
-// session_start();
-// if(!isset($_SESSION['rol'])){
-//   header("location:usuarioNoRegistrado.php");
-// }
-?>
+
 @include('layouts/links')
 <!DOCTYPE html>
 <html lang="en">
@@ -111,15 +106,14 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle"  href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php 
-                  // echo $_SESSION["nombreUsuario"]; 
-                  ?></span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                  {{auth()->user()->name}}
                 <img width="30" height="30" class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <button onclick="cerrarSesion()">
-                <a class="">
+                <button>
+                <a class="" href="{{route('Logout')}}">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Cerrar sesión
                 </a>
@@ -135,15 +129,34 @@
 
 
         <div class="card">
-            <h6 class="card-header text-center font-weight-bold text-uppercase py-4">Hola <?php
-              //  echo $_SESSION["nombreUsuario"]; 
-               ?></h6>
+            <h6 class="card-header text-center font-weight-bold text-uppercase py-4">Hola {{auth()->user()->name}}</h6>
             <div class="card-body">
               <div id="table" class="table-editable">
                 <table class="table table-bordered table-responsive-md table-striped text-center">
                   <tbody>
                     <div class="calint">
-                    <div class="calint1" id="fech"> 
+                    <div class="calint1" id="fech" style="color:#fff; padding:10px; overflow:auto; height:400px;"> 
+                    @if (strlen($Citas)>2)
+                      @foreach ($Citas as $Cita)
+                        @if ($Cita->Estado==True)
+                          <script>
+                            var fecha =[]
+                            fecha.push('{{$Cita->Fecha}}')
+                          </script>
+                          Su cita se programo para el: {{$Cita->Fecha}} a las: {{$Cita->Hora}}.
+                          <br>
+                          @php
+                               $Veterinario = $Veterinarios->find($Cita->medico_id);
+                          @endphp
+                          <span>con él veterinario: {{$Veterinario->Nombre}}</span>
+                        @else
+                          Su cita sigue en espera de ser confirmada.
+                        @endif
+                        <hr style="border-color:#fff;">
+                      @endforeach 
+                    @else
+                          No tiene citas programadas
+                    @endif
                     </div>
                     <div class="calint2"><div class="calendar">
     <div class="calendar__info">
@@ -163,7 +176,8 @@
         <div class="calendar__day calendar__item">Domingo</div>
     </div>
 
-    <div class="calendar__dates" id="dates"></div>
+    <div class="calendar__dates" id="dates">
+    </div>
 </div>
 </div>
                   </div>
@@ -177,5 +191,6 @@
 
    </body>
    <div id="#fecha"></div>
-  
+   
+   <script src="{{asset('js/calendar.js')}} "></script>
 </html>

@@ -31,11 +31,11 @@ Route::get('Administracion',[listarUsuariosController::class, 'index'])->name('a
 Route::get('Citas',[listarCitasController::class,'index'])->name('citas');
 Route::get('Confirmarcita',[listarCitasController::class, 'IndexNoActivate'])->name('confirmar');
 Route::get('Veterinarios',[listarMedicoController::class, 'index'])->name('medico');
+Route::get('logout',[inicioSesionController::class, 'destroy'])->name('Logout');
 
 // Routes Post for Login and Register
 Route::post('Registro',[RegisterController::class, 'register'])->name('Registro');
 Route::post('Login',[inicioSesionController::class, 'login'])->name('Authentication');
-Route::get('logout',[inicioSesionController::class, 'destroy'])->name('Logout');
 
 // Routes Post for Veterinario
 Route::post('Veterinarios',[listarMedicoController::class, 'create']);
@@ -50,3 +50,4 @@ Route::delete('DeleteUsers/{id}',[listarUsuariosController::class, 'delete'])->n
 // Routes Post for Citas
 Route::post('Citas',[listarCitasController::class, 'create'])->name('crearCita');
 Route::patch('ActivarCita',[listarCitasController::class, 'Activar'])->name('activarCita');
+Route::delete('DeleteCita/{id}',[listarCitasController::class, 'delete'])->name('delCita');

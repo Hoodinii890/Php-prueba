@@ -8,8 +8,15 @@ use PhpOption\None;
 
 class listarMedicoController extends Controller
 {
-    //
+    public function __construct(){
+        $this->middleware('auth');
+    }
     public function index(){
+        if ($this->middleware('auth')){
+            if (auth()->user()->administrador == False){
+                return redirect()->route('Inicio');
+            }
+        }
         $Vet = Medico::all();
         return view("Administracion/veterinarios",['Veterinarios'=>$Vet]);
     }
