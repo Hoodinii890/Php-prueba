@@ -23,6 +23,7 @@ class listarCitasController extends Controller
         $vets = Medico::all();
         return view("Administracion.terminarCita",['Citas'=>$Citas])->with(['Users'=>$users,'Veterinarios'=>$vets]);
     }
+    
     public function create(Request $request){
         if(auth()->user()->administrador==False){
             $request->validate([
@@ -67,6 +68,7 @@ class listarCitasController extends Controller
         $vets = Medico::all();
         return view("Administracion.confirmar",['Citas'=>$Citas])->with(['Users'=>$users,'Veterinarios'=>$vets]);
     }
+
     public function Activar(Request $request){
         $request->validate([
             'id'=>'required',
