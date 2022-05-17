@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Exception;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -33,7 +34,9 @@ class RegisterController extends Controller
                     $user->email=$request['email'];
                     $user->phone=$request['tel'];
                     $user->password=Hash::make($request['password']);
+                    $user->email_verified_at = now();
                     $user->administrador=0;
+                    $user->remember_token = Str::random(10);
                     $user->save();
                     return back()->with('success', 'Usuario registrado de forma correcta');
     
