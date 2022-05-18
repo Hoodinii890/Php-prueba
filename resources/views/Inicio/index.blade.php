@@ -340,6 +340,7 @@
                      </div>
                      <form action="{{route('crearCita')}}" method="post" autocomplete="off">
                         <!-- Form start -->
+                        {{-- Mostrar alertas y errores por metodo de php --}}
                         @if (session('success'))
                            <h2 class="alert alert-success">{{session('success')}}</h2>
                         @endif
