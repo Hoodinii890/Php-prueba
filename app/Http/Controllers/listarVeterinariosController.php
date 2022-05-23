@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Medico;
+use App\Models\Veterinario;
 use PhpOption\None;
 
-class listarMedicoController extends Controller
+class listarVeterinariosController extends Controller
 {
     public function __construct(){
         $this->middleware('auth');
@@ -17,7 +17,7 @@ class listarMedicoController extends Controller
                 return redirect()->route('Inicio');
             }
         }
-        $Vet = Medico::all();
+        $Vet = Veterinario::all();
         return view("Administracion/veterinarios",['Veterinarios'=>$Vet]);
     }
     public function create(Request $request){
@@ -25,11 +25,11 @@ class listarMedicoController extends Controller
             'Nombre'=>'required|string',
             'tel'=>'required|min:10|max:10'
         ]);
-        $Vet = new Medico();
+        $Vet = new Veterinario();
         $Vet->Nombre = $request->Nombre;
         $Vet->Telefono = $request->tel;
         $Vet->save();
-        return redirect()->route('medico')->with('success', 'Se registro el veterinario de forma correcta');
+        return redirect()->route('Veterinarios')->with('success', 'Se registro el veterinario de forma correcta');
     }
 
     public function Edit(Request $request){
@@ -37,15 +37,15 @@ class listarMedicoController extends Controller
             'Nombre'=>'required|string',
             'tel'=>'required|min:10|max:10'
         ]);
-        $Vet = Medico::find($request['id']);
+        $Vet = Veterinario::find($request['id']);
         $Vet->Nombre = $request['Nombre'];
         $Vet->Telefono = $request['tel'];
         $Vet->save();
-        return redirect()->route('medico')->with('success', 'Se actualizado el veterinario de forma correcta');
+        return redirect()->route('Veterinarios')->with('success', 'Se actualizado el veterinario de forma correcta');
     }
     public function delete($id){
-        $Vet = Medico::find($id);
+        $Vet = Veterinario::find($id);
         $Vet->delete();
-        return redirect()->route('medico')->with('success', 'Se eliminado el veterinario de forma correcta');
+        return redirect()->route('Veterinarios')->with('success', 'Se eliminado el veterinario de forma correcta');
     }
-} 
+}

@@ -8,7 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\inicioSesionController;
 use App\Http\Controllers\listarCitasController;
 use App\Http\Controllers\listarUsuariosController;
-use App\Http\Controllers\listarMedicoController;
+use App\Http\Controllers\listarVeterinariosController;
 use App\Http\Controllers\RegisterController;
 
 /*
@@ -30,7 +30,7 @@ Route::get('usuarioNoRegistrado', [cerrarSesionController::class, 'index'])->nam
 Route::get('Administracion',[listarUsuariosController::class, 'index'])->name('admin');
 Route::get('Citas',[listarCitasController::class,'index'])->name('citas');
 Route::get('Confirmarcita',[listarCitasController::class, 'IndexNoActivate'])->name('confirmar');
-Route::get('Veterinarios',[listarMedicoController::class, 'index'])->name('medico');
+Route::get('Veterinarios',[listarVeterinariosController::class, 'index'])->name('Veterinarios');
 Route::get('logout',[inicioSesionController::class, 'destroy'])->name('Logout');
 
 // Routes Post for Login and Register
@@ -38,9 +38,9 @@ Route::post('Registro',[RegisterController::class, 'register'])->name('Registro'
 Route::post('Login',[inicioSesionController::class, 'login'])->name('Authentication');
 
 // Routes Post for Veterinario
-Route::post('Veterinarios',[listarMedicoController::class, 'create']);
-Route::patch('EditVeterinarios',[listarMedicoController::class, 'Edit'])->name('editVet_update');
-Route::delete('DeleteVeterinarios/{id}',[listarMedicoController::class, 'delete'])->name('delVet');
+Route::post('Veterinarios',[listarVeterinariosController::class, 'create']);
+Route::patch('EditVeterinarios',[listarVeterinariosController::class, 'Edit'])->name('editVet_update');
+Route::delete('DeleteVeterinarios/{id}',[listarVeterinariosController::class, 'delete'])->name('delVet');
 
 // Routes Post for Usuarios
 Route::patch('EditUsuario',[listarUsuariosController::class, 'Edit'])->name('editUsuario');

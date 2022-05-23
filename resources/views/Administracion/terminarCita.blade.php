@@ -22,11 +22,11 @@
               @if (strlen($Citas)>2)
               @foreach ($Citas as $cita)
                 @if ($cita->Estado==True)
-                    
+
                     <tr>
-                        @php  
+                        @php
                         $User = $Users->find($cita->user_id);
-                        $Veterinario = $Veterinarios->find($cita->medico_id);
+                        $Veterinario = $Veterinarios->find($cita->veterinario_id);
                         @endphp
                         <td>{{$cita->id}}</td>
                         <td>{{$cita->Fecha}}</td>
@@ -40,16 +40,16 @@
                             @csrf
                             @method('DELETE')
                             <div  class="btn btn-warning" onclick="Terminarcita('{{route('delCita', [$cita->id])}}')">Concluir
-                                
+
                             </div>
                             </form>
                         </th>
                     </tr>
                     @else
-                    
+
                 @endif
               @endforeach
-              
+
             @endif
             <tr><td>No hay más citas activas actualmente</td></tr>
             </tbody>
@@ -64,7 +64,7 @@
 <br>
 <a class="collapse-item" href="{{route('admin')}} ">Administración Usuarios</a>
 <br>
-<a class="collapse-item" href="{{route('medico')}} ">Veterinarios</a>
+<a class="collapse-item" href="{{route('Veterinarios')}} ">Veterinarios</a>
 @endsection
 @section('modales')
   <div class="modal fade" id="Cita" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -77,7 +77,7 @@
           </button>
         </div>
         <div id="datosModificar" class="modal-body">
-          
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -86,8 +86,8 @@
       </div>
     </div>
   </div>
-@endsection    
-  
+@endsection
+
    </body>
-   
+
 </html>

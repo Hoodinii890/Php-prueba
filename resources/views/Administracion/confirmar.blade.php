@@ -19,7 +19,7 @@
          @endforeach
       <div class="card-body">
       <div id="table" class="table-editable">
-          
+
           <table class="table table-bordered table-responsive-md table-striped text-center">
           <thead>
               <tr>
@@ -38,11 +38,11 @@
             @if (strlen($Citas)>2)
               @foreach ($Citas as $cita)
                 @if ($cita->Estado==False)
-                    
+
                     <tr>
-                        @php  
+                        @php
                         $User = $Users->find($cita->user_id);
-                        $Veterinario = $Veterinarios->find($cita->medico_id);
+                        $Veterinario = $Veterinarios->find($cita->veterinario_id);
                         @endphp
                         <td>{{$cita->id}}</td>
                         <td>{{$cita->Fecha}}</td>
@@ -54,20 +54,20 @@
                         <th>
                             <form action="" method="post">
                             @csrf
-                            <div class="btn btn-primary" onclick="Editarcita({{$cita->id}}, '{{$cita->Fecha}}', '{{$cita->medico_id}}', '{{$cita->Hora}}','{{$Veterinario->Nombre}}')" data-toggle="modal" data-target="#modificarCita">Editar</div>
+                            <div class="btn btn-primary" onclick="Editarcita({{$cita->id}}, '{{$cita->Fecha}}', '{{$cita->veterinario_id}}', '{{$cita->Hora}}','{{$Veterinario->Nombre}}')" data-toggle="modal" data-target="#modificarCita">Editar</div>
                             </form>
                         </th>
                         <th>
                             <form id="formp" action="#" method="post">
                             @csrf
                             @method('DELETE')
-                            <div  class="btn btn-danger" onclick="Eliminarcita('{{route('delVet', [$cita->id])}}')">Eliminar
-                                
+                            <div  class="btn btn-danger" onclick="EliminarCita('{{route('delVet', [$cita->id])}}')">Eliminar
+
                             </div>
                             </form>
                         </th>
                     </tr>
-                    
+
                 @endif
               @endforeach
               <tr><td>No hay más citas en espera actualmente</td></tr>
@@ -84,7 +84,7 @@
 <br>
 <a class="collapse-item" href="{{route('citas')}} ">Concluir citas</a>
 <br>
-<a class="collapse-item" href="{{route('medico')}} ">Veterinarios</a>
+<a class="collapse-item" href="{{route('Veterinarios')}} ">Veterinarios</a>
 @endsection
 @section('modales')
 <div class="modal fade" id="modificarCita" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -103,14 +103,14 @@
             <input type="hidden" id="id_editarcita" name="id" value="">
             <!-- Text input-->
             <div class="form-group">
-               <label class="col-md-4 control-label" for="textinput">Fecha</label>  
+               <label class="col-md-4 control-label" for="textinput">Fecha</label>
                <div class="col-md-8">
                   <input id="fecha_editarcita" name="fecha" type="date" value="2017-06-01" class="form-control input-md" required="">
                </div>
             </div>
             <!-- Text input-->
             <div class="form-group">
-               <label class="col-md-4 control-label" for="textinput">Veterinario</label>  
+               <label class="col-md-4 control-label" for="textinput">Veterinario</label>
                <div class="col-md-8">
                   <select name="m_id" id="">
                       <option  value="" id="mid_editarcita"></option>
@@ -122,7 +122,7 @@
             </div>
             <!-- Text input-->
             <div class="form-group">
-               <label class="col-md-4 control-label" for="textinput">Hora</label>  
+               <label class="col-md-4 control-label" for="textinput">Hora</label>
                <select id="hora" name="hora" class="">
                       <option value="" id="hora_editarcita"></option>
                      <option value="6:00am">6:00am</option>
@@ -133,7 +133,7 @@
                 <input type="hidden" value="1" name="estado">
             </fieldset>
             <div class="boton">
-                  <button type="submit" name="submit" class="btn btn-info">Registrar</button>
+                  <button type="submit" name="submit" class="btn btn-info">Confirmar</button>
             </div>
             <br><br>
          </form>

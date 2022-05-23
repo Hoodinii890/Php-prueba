@@ -23,8 +23,8 @@ return new class extends Migration
             ->cascadeOnDelete()
             ->cascadeOnUpdate();
             $table->boolean('Estado');
-            $table->foreignId('medico_id')
-            ->constrained('medicos')
+            $table->foreignId('veterinario_id')
+            ->constrained('veterinarios')
             ->cascadeOnDelete()
             ->cascadeOnUpdate();
             $table->timestamps();

@@ -29,6 +29,6 @@ class veterinariosSeeder extends Seeder
                 'Telefono'=>rand(1000000000, 9999999999)
             ],
         ];
-        DB::table('medicos')->insert($datos);
+        DB::table('veterinarios')->insert($datos);
     }
 }

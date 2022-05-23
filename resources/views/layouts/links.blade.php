@@ -33,7 +33,7 @@
     <script src="{{asset('js/popper.min.js')}} "></script>
     <!-- ALL PLUGINS -->
     <script src="{{asset('js/jquery.magnific-popup.min.js')}} "></script>
-    <script src="{{asset('js/jquery.pogo-slider.min.js')}} "></script> 
+    <script src="{{asset('js/jquery.pogo-slider.min.js')}} "></script>
     <script src="{{asset('js/slider-index.js')}} "></script>
     <script src="{{asset('js/smoothscroll.js')}} "></script>
     <script src="{{asset('js/TweenMax.min.js')}} "></script>
@@ -41,8 +41,8 @@
     <script src="{{asset('js/owl.carousel.min.js')}} "></script>
     <script src="{{asset('js/form-validator.min.js')}} "></script>
     <script src="{{asset('js/contact-form-script.js')}} "></script>
-    <script src="{{asset('js/isotope.min.js')}} "></script> 
-    <script src="{{asset('js/images-loded.min.js')}} "></script>  
+    <script src="{{asset('js/isotope.min.js')}} "></script>
+    <script src="{{asset('js/images-loded.min.js')}} "></script>
     <script src="{{asset('js/custom.js')}} "></script>
     <script src="https://kit.fontawesome.com/1f45d73677.js" crossorigin="anonymous"></script>
     <script src="{{asset('js/scriptablas.js')}} "></script>

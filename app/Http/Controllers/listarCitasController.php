@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\AdminController;
 use Illuminate\Http\Request;
 use App\Models\Cita;
-use App\Models\Medico;
+use App\Models\Veterinario;
 use App\Models\User;
 class listarCitasController extends Controller
 {
@@ -20,10 +20,10 @@ class listarCitasController extends Controller
         }
         $Citas = Cita::all();
         $users = User::all();
-        $vets = Medico::all();
+        $vets = Veterinario::all();
         return view("Administracion.terminarCita",['Citas'=>$Citas])->with(['Users'=>$users,'Veterinarios'=>$vets]);
     }
-    
+
     public function create(Request $request){
         if(auth()->user()->administrador==False){
             $request->validate([
@@ -37,13 +37,13 @@ class listarCitasController extends Controller
             $cita->Hora = $request['hora'];
             $cita->user_id = auth()->user()->id;
             $cita->Estado = 0;
-            $Vets = Medico::all();
+            $Vets = Veterinario::all();
             $cantVet = 0;
             foreach ($Vets as $Vet) {
                 $cantVet = $cantVet + 1;
             }
             if ($cantVet > 0) {
-                $cita->medico_id = rand(1, $cantVet);
+                $cita->veterinario_id = rand(1, $cantVet);
                 $cita->save();
                 return back()->with('success','La cita se ha realizado con exito.');
             }
@@ -54,7 +54,7 @@ class listarCitasController extends Controller
         else{
             return back()->with('info','Un administrador no puede ordenar una cita.');
         }
-        
+
     }
 
     public function IndexNoActivate(){
@@ -65,7 +65,7 @@ class listarCitasController extends Controller
         }
         $Citas = Cita::all();
         $users = User::all();
-        $vets = Medico::all();
+        $vets = Veterinario::all();
         return view("Administracion.confirmar",['Citas'=>$Citas])->with(['Users'=>$users,'Veterinarios'=>$vets]);
     }
 
@@ -79,7 +79,7 @@ class listarCitasController extends Controller
         ]);
         $Cita = Cita::find($request['id']);
         $Cita->Fecha=$request['fecha'];
-        $Cita->medico_id=$request['m_id'];
+        $Cita->veterinario_id=$request['m_id'];
         $Cita->Hora=$request['hora'];
         $Cita->Estado=$request['estado'];
         $Cita->save();

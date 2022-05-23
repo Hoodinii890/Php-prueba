@@ -63,7 +63,7 @@
                <div class="collapse navbar-collapse justify-content-end" id="navbar-wd">
                   <ul class="navbar-nav">
                      <li><a class="nav-link active" href="{{route('Inicio')}}">Inicio</a></li>
-                     
+
                   </ul>
                </div>
             </div>
@@ -135,25 +135,27 @@
                 <table class="table table-bordered table-responsive-md table-striped text-center">
                   <tbody>
                     <div class="calint">
-                    <div class="calint1" id="fech" style="color:#fff; padding:10px; overflow:auto; height:400px;"> 
+                    <div class="calint1" id="fech" style="color:#fff; padding:10px; overflow:auto; height:400px;">
                     @if (strlen($Citas)>2)
+                        <script>
+                        var fecha =[];
+                        </script>
                       @foreach ($Citas as $Cita)
                         @if ($Cita->Estado==True)
                           <script>
-                            var fecha =[]
                             fecha.push('{{$Cita->Fecha}}')
                           </script>
                           Su cita se programo para el: {{$Cita->Fecha}} a las: {{$Cita->Hora}}.
                           <br>
                           @php
-                               $Veterinario = $Veterinarios->find($Cita->medico_id);
+                               $Veterinario = $Veterinarios->find($Cita->veterinario_id);
                           @endphp
                           <span>con él veterinario: {{$Veterinario->Nombre}}</span>
                         @else
                           Su cita sigue en espera de ser confirmada.
                         @endif
                         <hr style="border-color:#fff;">
-                      @endforeach 
+                      @endforeach
                     @else
                           No tiene citas programadas
                     @endif
@@ -191,6 +193,6 @@
 
    </body>
    <div id="#fecha"></div>
-   
+
    <script src="{{asset('js/calendar.js')}} "></script>
 </html>

@@ -3,7 +3,6 @@ $(document).ready(function() {
 });
 
 function actualizarTablausuario() {
-
 }
 let monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
@@ -34,24 +33,26 @@ const writeMonth = (month) => {
             ${getTotalDays(monthNumber-1)-(i-1)}
         </div>`;
     }
-    if (fech.length > 0) {
+    if (fecha.length > 0) {
+        var cont = 0
+
+        for (let i = 1; i <= getTotalDays(month); i++) {
+                dates.innerHTML += ` <div class="calendar__date calendar__item">${i}</div>`;
+        }
         fecha.forEach(Cita => {
+            cont = cont + 1
             var dia = Cita.substr(8, 2)
             var mes = Number(Cita.substr(5, 2)) - 1
             if (month === mes) {
-                for (let i = 1; i <= getTotalDays(month); i++) {
-                    console.log(i + '-' + dia)
-                    if (i === parseInt(dia)) {
-                        console.log(i + '-' + dia + ' corretco')
-                        dates.innerHTML += ` <div class="calendar__date calendar__item calendar__today">${i}</div>`;
-                    } else {
-                        dates.innerHTML += ` <div class="calendar__date calendar__item">${i}</div>`;
+                cal = document.querySelectorAll('.calendar__item')
+                cal.forEach(Cal=>{
+                    day = Cal.textContent
+                    if(parseInt(day) === parseInt(dia)){
+                        if(!Cal.classList.contains("calendar__last-days")){
+                            Cal.classList.add('calendar__today')
+                        }
                     }
-                }
-            } else {
-                for (let i = 1; i <= getTotalDays(month); i++) {
-                    dates.innerHTML += ` <div class="calendar__date calendar__item">${i}</div>`;
-                }
+                })
             }
         });
     } else {
